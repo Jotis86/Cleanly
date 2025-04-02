@@ -13,10 +13,8 @@ sns.set_theme(style="whitegrid")
 # Obtener la ruta absoluta del directorio actual
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Construir las rutas absolutas de las imágenes en la carpeta 'images'
-images_dir = os.path.join(current_dir, 'images')
-principal_image_path = os.path.join(images_dir, 'portada.png')
-menu_image_path = os.path.join(images_dir, 'funko.png')
+principal_image_path = os.path.join("images", 'portada.png')
+menu_image_path = os.path.join("images", 'funko.png')
 
 
 # Configuración de la barra lateral
