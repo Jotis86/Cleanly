@@ -92,6 +92,24 @@ if uploaded_file:
     st.write(f"Number of rows: {df.shape[0]}")
     st.write(f"Number of columns: {df.shape[1]}")
 
+    # Mostrar tipos de datos
+    st.write("### Data Types")
+    # Crear un DataFrame para mostrar los tipos de datos de forma más elegante
+    dtypes_df = pd.DataFrame({
+        'Column': df.columns,
+        'Data Type': [str(df[col].dtype) for col in df.columns],
+        'Example Values': [str(df[col].iloc[0:3].tolist()) if not df[col].empty else "N/A" for col in df.columns]
+    })
+    st.write(dtypes_df)
+    
+    # Visualizar distribución de tipos de datos
+    dtype_counts = df.dtypes.value_counts().reset_index()
+    dtype_counts.columns = ['Data Type', 'Count']
+    fig, ax = plt.subplots(figsize=(8, 4))
+    sns.barplot(x='Data Type', y='Count', data=dtype_counts, palette='viridis', ax=ax)
+    ax.set_title('Distribution of Column Data Types')
+    st.pyplot(fig)
+
     # Mostrar duplicados
     st.write("### Duplicates")
     duplicates = df[df.duplicated()]
