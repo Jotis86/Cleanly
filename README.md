@@ -34,10 +34,6 @@ Before running the project, ensure you have the following dependencies installed
 - 📦 Seaborn
 - 📦 Matplotlib
 
-Install the dependencies by running:
-
-```bash
-pip install -r requirements.txt
 
 ## 📝 Usage
 
@@ -95,12 +91,6 @@ Once you have finished processing the data, click the download button to save th
 ---
 
 ## 📸 Screenshots
-
-### 🖥️ Main Screen
-<img alt="Main Screen" src="https://via.placeholder.com/800x400?text=Main+Screen+Screenshot">
-
-### 🔗 Correlation Matrix
-<img alt="Correlation Matrix" src="https://via.placeholder.com/800x400?text=Correlation+Matrix+Screenshot">
 
 ---
 
