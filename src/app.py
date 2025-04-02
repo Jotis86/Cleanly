@@ -222,12 +222,43 @@ if uploaded_file:
             else:
                 st.write("Not enough numeric columns to create a scatter plot.")
         elif action == "Group Data":
-            group_column = st.selectbox("Select column to group by:", df.columns)
-            agg_column = st.selectbox("Select column to aggregate:", df.select_dtypes(include=np.number).columns)
-            agg_func = st.selectbox("Select aggregation function:", ["mean", "sum", "count", "max", "min"])
-            grouped_df = df.groupby(group_column)[agg_column].agg(agg_func).reset_index()
-            st.write(f"Data after grouping by {group_column} and aggregating {agg_column} with {agg_func}:")
-            st.write(grouped_df)
+            try:
+                # Seleccionar columna para agrupar
+                group_column = st.selectbox("Select column to group by:", df.columns)
+                
+                # Filtrar columnas numéricas excluyendo la columna de agrupación
+                numeric_cols = df.select_dtypes(include=np.number).columns
+                available_agg_cols = [col for col in numeric_cols if col != group_column]
+                
+                if len(available_agg_cols) == 0:
+                    # Si no hay columnas numéricas disponibles después de excluir la columna de agrupación
+                    st.warning("No numeric columns available for aggregation. Please select a different column for grouping or add more numeric columns to your dataset.")
+                else:
+                    # Seleccionar columna para agregar y función de agregación
+                    agg_column = st.selectbox("Select column to aggregate:", available_agg_cols)
+                    agg_func = st.selectbox("Select aggregation function:", ["mean", "sum", "count", "max", "min"])
+                    
+                    # Realizar el agrupamiento
+                    grouped_df = df.groupby(group_column)[agg_column].agg(agg_func).reset_index()
+                    
+                    # Mostrar resultados
+                    st.write(f"Data after grouping by '{group_column}' and aggregating '{agg_column}' with '{agg_func}':")
+                    st.write(grouped_df)
+                    
+                    # Visualizar los resultados en un gráfico de barras si no hay demasiados grupos
+                    if len(grouped_df) <= 20:  # Limitar para legibilidad
+                        st.write("### Visualization of Grouped Data")
+                        fig, ax = plt.subplots(figsize=(10, 5))
+                        sns.barplot(x=group_column, y=agg_column, data=grouped_df, ax=ax)
+                        ax.set_title(f"{agg_func.capitalize()} of {agg_column} by {group_column}")
+                        if len(grouped_df) > 5:  # Rotar etiquetas si hay muchos grupos
+                            ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha='right')
+                        plt.tight_layout()
+                        st.pyplot(fig)
+            
+            except Exception as e:
+                st.error(f"An error occurred during data grouping: {str(e)}")
+                st.info("Try selecting different columns or handling missing values first.")
         elif action == "Correlation Matrix":
             st.write("### Correlation Matrix")
             numeric_cols = df.select_dtypes(include=np.number).columns
