@@ -59,6 +59,10 @@ Once you have finished processing the data, click the download button to save th
 
 ## 🔍 Detailed Functionalities
 
+### 📊 Data Analysis
+- **Descriptive Statistics**: Generate summary statistics (count, mean, std, min, max, quartiles) for numeric columns.
+- **Correlation Matrix**: Displays the correlation between numeric columns as a heatmap with automated insights.
+
 ### 🧹 Data Cleaning
 - **Remove Duplicates**: Identifies and removes duplicate rows in the dataset.
 - **Handle Missing Values**:
@@ -68,6 +72,16 @@ Once you have finished processing the data, click the download button to save th
 ### 🚫 Outlier Removal
 - **Z-Score**: Removes rows where numeric values have a Z-Score greater than a threshold (default: 3).
 - **IQR (Interquartile Range)**: Removes rows where numeric values fall outside the IQR range.
+
+### 🔄 Data Transformation
+- **Normalize Data**: Scale numeric columns to a range between 0 and 1 for better comparability.
+- **Encode Categorical Columns**: Convert text/categorical columns to numeric values for analysis.
+- **Rename Columns**: Change column names for better clarity or consistency.
+- **Delete Specific Columns**: Remove unnecessary columns from the dataset.
+
+### 🔍 Data Filtering & Sorting
+- **Filter Rows**: Filter data based on specific column values with options for different comparison types.
+- **Sort Data**: Order the dataset by any column in ascending or descending order.
 
 ### 📊 Data Visualization
 - **Histograms**: Displays the distribution of numeric values.
