@@ -129,6 +129,33 @@ if uploaded_file:
     ax.set_title("Heatmap of Missing Values")
     st.pyplot(fig)
 
+    # Detección básica de outliers
+    # Definir columnas numéricas
+    numeric_cols = df.select_dtypes(include=np.number).columns
+    st.write("### Potential Outliers in Numeric Columns")
+    if len(numeric_cols) > 0:
+        outlier_stats = []
+        for col in numeric_cols:
+            q1 = df[col].quantile(0.25)
+            q3 = df[col].quantile(0.75)
+            iqr = q3 - q1
+            lower_bound = q1 - 1.5 * iqr
+            upper_bound = q3 + 1.5 * iqr
+            outliers = df[(df[col] < lower_bound) | (df[col] > upper_bound)][col].count()
+            outlier_pct = (outliers / len(df)) * 100
+            outlier_stats.append({"Column": col, "Outliers Count": outliers, "Percentage": f"{outlier_pct:.2f}%"})
+        
+        outlier_df = pd.DataFrame(outlier_stats)
+        st.write(outlier_df)
+        
+        # Visualizar columnas con más outliers
+        if not outlier_df.empty:
+            fig, ax = plt.subplots(figsize=(10, 5))
+            sns.barplot(x='Column', y='Outliers Count', data=outlier_df.sort_values('Outliers Count', ascending=False).head(5), ax=ax)
+            ax.set_title('Top 5 Columns with Most Outliers')
+            plt.xticks(rotation=45, ha='right')
+            st.pyplot(fig)
+
     # Menú para acciones
     st.write("### What would you like to do next?")
     options = [
