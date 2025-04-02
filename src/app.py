@@ -319,17 +319,54 @@ if uploaded_file:
             except Exception as e:
                 st.error(f"An error occurred during data grouping: {str(e)}")
                 st.info("Try selecting different columns or handling missing values first.")
+
         elif action == "Correlation Matrix":
             st.write("### Correlation Matrix")
             numeric_cols = df.select_dtypes(include=np.number).columns
             if len(numeric_cols) > 1:
-                fig, ax = plt.subplots(figsize=(10, 6))
+                # Calcular la matriz de correlación
                 corr = df[numeric_cols].corr()
-                sns.heatmap(corr, annot=True, cmap="coolwarm", ax=ax)
+                
+                # Crear la visualización sin anotaciones numéricas
+                fig, ax = plt.subplots(figsize=(10, 6))
+                sns.heatmap(corr, annot=False, cmap="coolwarm", ax=ax)
                 ax.set_title("Correlation Matrix")
                 st.pyplot(fig)
+                
+                # Generar insights automáticos
+                st.write("### Key Insights from Correlation Analysis")
+                
+                # Encontrar las correlaciones más fuertes (positivas)
+                corr_flat = corr.abs().unstack()
+                corr_flat = corr_flat[corr_flat < 1.0]  # Eliminar diagonales (correlación de variables consigo mismas)
+                strongest_corrs = corr_flat.sort_values(ascending=False)[:5]  # Top 5
+                
+                if not strongest_corrs.empty:
+                    st.write("#### Strongest relationships:")
+                    for idx, val in strongest_corrs.items():
+                        var1, var2 = idx
+                        corr_val = corr.loc[var1, var2]
+                        relationship = "positive" if corr_val > 0 else "negative"
+                        st.write(f"• **{var1}** and **{var2}**: {relationship} correlation ({corr_val:.2f})")
+                        
+                        # Mostrar pequeño scatter plot para las correlaciones más fuertes
+                        if abs(corr_val) > 0.5:  # Solo para correlaciones significativas
+                            fig, ax = plt.subplots(figsize=(6, 4))
+                            sns.scatterplot(data=df, x=var1, y=var2, ax=ax)
+                            ax.set_title(f"Relationship: {var1} vs {var2}")
+                            st.pyplot(fig)
+                
+                # Insight general
+                avg_corr = corr_flat.mean()
+                if avg_corr > 0.7:
+                    st.info("📊 Your dataset has strongly correlated variables, which could indicate redundancy or strong relationships.")
+                elif avg_corr > 0.4:
+                    st.info("📊 Your dataset has moderately correlated variables.")
+                else:
+                    st.info("📊 Most variables in your dataset appear to be weakly correlated.")
             else:
                 st.write("Not enough numeric columns for a correlation matrix.")
+
         elif action == "Download Cleaned Data":
             buffer = BytesIO()
             df.to_csv(buffer, index=False)
