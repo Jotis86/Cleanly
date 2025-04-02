@@ -32,9 +32,6 @@ st.sidebar.markdown("[GitHub Repository](https://github.com/yourusername/cleanly
 st.sidebar.markdown("---")
 st.sidebar.markdown("© 2023 Cleanly")
 
-# Streamlit app
-st.title("CSV Cleaner and EDA Tool")
-
 # Mostrar imagen principal
 try:
     st.image(principal_image_path, use_container_width=True)
