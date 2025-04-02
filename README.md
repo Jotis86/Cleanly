@@ -1,5 +1,8 @@
 # 🧹 Cleanly: CSV Cleaner and EDA Tool
 
+![Cleanly - CSV Cleaner and EDA Tool](./images/portada.png)
+
+
 Cleanly is an interactive Streamlit-based tool that allows you to upload, clean, and analyze CSV files easily. It provides functionalities for data cleaning, outlier removal, data visualization, and exploratory data analysis (EDA).
 
 ## ✨ Features
@@ -91,6 +94,10 @@ Once you have finished processing the data, click the download button to save th
 ---
 
 ## 📸 Screenshots
+
+Below is a preview of Cleanly's interface. The application provides an intuitive dashboard where you can upload your CSV files, clean your data, and perform exploratory data analysis with just a few clicks.
+
+![Screenshot](./images/captura.png)
 
 ---
 
