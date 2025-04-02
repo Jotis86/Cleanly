@@ -247,13 +247,10 @@ if uploaded_file:
                         # Mostrar resultados
                         if len(filtered_df) > 0:
                             st.success(f"Filter applied successfully. Found {len(filtered_df)} matching rows.")
-                            st.write(filtered_df)
-                            
-                            # Opción para actualizar el DataFrame principal
-                            use_filtered = st.button("Use filtered data for next operations")
-                            if use_filtered:
-                                df = filtered_df.copy()
-                                st.success("Main dataset updated with filtered data!")
+                            # Actualizar el DataFrame principal directamente
+                            df = filtered_df
+                            st.write("Data after filtering:")
+                            st.write(df)
                         else:
                             st.warning("No rows match your filter criteria. Try different values.")
             
