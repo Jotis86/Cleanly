@@ -152,7 +152,7 @@ if uploaded_file:
         if not outlier_df.empty:
             fig, ax = plt.subplots(figsize=(10, 5))
             sns.barplot(x='Column', y='Outliers Count', data=outlier_df.sort_values('Outliers Count', ascending=False).head(5), ax=ax)
-            ax.set_title('Top 5 Columns with Most Outliers')
+            ax.set_title('Top 5 Columns with Most Potential Outliers')
             plt.xticks(rotation=45, ha='right')
             st.pyplot(fig)
 
