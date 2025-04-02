@@ -30,8 +30,13 @@ Cleanly is an interactive Streamlit-based tool that allows you to upload, clean,
   - 📉 Histograms.
   - 📊 Bar charts.
   - 🟢 Scatter plots.
-  - 🔗 Correlation matrix.
+  - 🔗 Correlation matrix with automated insights.
 - 📚 **Data Grouping**: Group data by columns and apply aggregation functions like mean, sum, count, etc.
+- 🔎 **Enhanced Data Exploration**:
+  - 📋 Data type analysis with first value examples
+  - 📊 Distribution of column data types visualization
+  - 🔍 Automatic outlier detection with statistical measurements
+  - 📈 Top outlier columns visualization
 - 💾 **Download Processed Data**: Download the cleaned and processed CSV file.
 
 ## 🛠️ Requirements
