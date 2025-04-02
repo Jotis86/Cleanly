@@ -29,7 +29,6 @@ except Exception as e:
 st.sidebar.title("✨ Cleanly")
 st.sidebar.markdown("<p style='font-size: 18px; font-style: italic; color: #4d8b90;'>Your Data Cleaning Companion</p>", unsafe_allow_html=True)
 
-st.sidebar.markdown("---")
 
 # Botón de GitHub estilizado en verde
 st.sidebar.markdown("""
@@ -45,19 +44,15 @@ st.sidebar.markdown("""
 </a>
 """, unsafe_allow_html=True)
 
-st.sidebar.markdown("---")
 
 # Sección personalizada de información del creador
 st.sidebar.markdown("""
 <div style='background-color: #f5f7f9; padding: 10px; border-radius: 8px; margin-top: 10px;'>
     <h4 style='color: #333; margin-bottom: 5px;'>Created with 💙</h4>
     <p style='color: #666; margin-bottom: 5px; font-size: 14px;'>by <span style='font-weight: bold; color: #2c3e50;'>Jotis</span></p>
-    <p style='color: #888; font-size: 12px; margin-top: 5px;'>© 2023 Cleanly - All rights reserved</p>
+    <p style='color: #888; font-size: 12px; margin-top: 5px;'>© 2025 Cleanly - All rights reserved</p>
 </div>
 """, unsafe_allow_html=True)
-
-# Añadir un pequeño detalle visual al final
-st.sidebar.markdown("<div style='margin-top: 50px; text-align: center; color: #ccc;'>🧹 ✨ 📊</div>", unsafe_allow_html=True)
 
 # Mostrar imagen principal
 try:
