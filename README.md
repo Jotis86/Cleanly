@@ -2,6 +2,14 @@
 
 ![Cleanly - CSV Cleaner and EDA Tool](./images/portada.png)
 
+[![GitHub stars](https://img.shields.io/github/stars/Jotis86/Cleanly)](https://github.com/Jotis86/Cleanly/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/Jotis86/Cleanly)](https://github.com/Jotis86/Cleanly/network/members)
+[![Total commits](https://img.shields.io/github/commit-activity/t/Jotis86/Cleanly?label=commits)](https://github.com/Jotis86/Cleanly/commits/main)
+[![Author](https://img.shields.io/badge/Author-Jotis86-blue)](https://github.com/Jotis86)
+[![GitHub license](https://img.shields.io/github/license/Jotis86/Cleanly)](https://github.com/Jotis86/Cleanly/blob/master/LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.7+-blue?logo=python&logoColor=white)](https://www.python.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
+
 
 Cleanly is an interactive Streamlit-based tool that allows you to upload, clean, and analyze CSV files easily. It provides functionalities for data cleaning, outlier removal, data visualization, and exploratory data analysis (EDA).
 
