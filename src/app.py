@@ -98,7 +98,7 @@ if uploaded_file:
     dtypes_df = pd.DataFrame({
         'Column': df.columns,
         'Data Type': [str(df[col].dtype) for col in df.columns],
-        'Example Values': [str(df[col].iloc[0:3].tolist()) if not df[col].empty else "N/A" for col in df.columns]
+        'First 3 Values': [str(df[col].iloc[0:3].tolist()) if not df[col].empty else "N/A" for col in df.columns]
     })
     st.write(dtypes_df)
     
