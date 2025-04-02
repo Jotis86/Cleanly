@@ -25,12 +25,39 @@ except Exception as e:
     st.sidebar.info(f"Looking for image at: {menu_image_path}")
 
 
-st.sidebar.title("Cleanly")
-st.sidebar.markdown("### Data Cleaning Made Simple")
+# Sidebar mejorado y personalizado
+st.sidebar.title("✨ Cleanly")
+st.sidebar.markdown("<p style='font-size: 18px; font-style: italic; color: #4d8b90;'>Your Data Cleaning Companion</p>", unsafe_allow_html=True)
+
 st.sidebar.markdown("---")
-st.sidebar.markdown("[GitHub Repository](https://github.com/yourusername/cleanly)")
+
+# Botón de GitHub estilizado en verde
+st.sidebar.markdown("""
+<a href='https://github.com/Jotis86/Cleanly' target='_blank'>
+    <button style='background-color: #2ea44f; border: none; color: white; padding: 10px 24px; 
+    text-align: center; text-decoration: none; display: inline-block; font-size: 16px; 
+    margin: 4px 2px; cursor: pointer; border-radius: 8px; width: 100%;'>
+        <svg style="vertical-align: middle; margin-right: 10px;" height="20" width="20" viewBox="0 0 16 16" fill="white">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+        </svg>
+        GitHub Repository
+    </button>
+</a>
+""", unsafe_allow_html=True)
+
 st.sidebar.markdown("---")
-st.sidebar.markdown("© 2023 Cleanly")
+
+# Sección personalizada de información del creador
+st.sidebar.markdown("""
+<div style='background-color: #f5f7f9; padding: 10px; border-radius: 8px; margin-top: 10px;'>
+    <h4 style='color: #333; margin-bottom: 5px;'>Created with 💙</h4>
+    <p style='color: #666; margin-bottom: 5px; font-size: 14px;'>by <span style='font-weight: bold; color: #2c3e50;'>Jotis</span></p>
+    <p style='color: #888; font-size: 12px; margin-top: 5px;'>© 2023 Cleanly - All rights reserved</p>
+</div>
+""", unsafe_allow_html=True)
+
+# Añadir un pequeño detalle visual al final
+st.sidebar.markdown("<div style='margin-top: 50px; text-align: center; color: #ccc;'>🧹 ✨ 📊</div>", unsafe_allow_html=True)
 
 # Mostrar imagen principal
 try:
