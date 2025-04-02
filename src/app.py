@@ -184,12 +184,57 @@ if uploaded_file:
                 st.write(f"Column '{selected_col}' renamed to '{new_name}'")
                 st.write(df)
         elif action == "Filter Rows":
-            filter_column = st.selectbox("Select column to filter by:", df.columns)
-            filter_value = st.text_input("Enter value to filter by:")
-            if filter_value:
-                df = df[df[filter_column] == filter_value]
-                st.write("Data after filtering rows:")
-                st.write(df)
+            try:
+                filter_column = st.selectbox("Select column to filter by:", df.columns)
+                
+                # Determinar el tipo de columna
+                is_numeric = pd.api.types.is_numeric_dtype(df[filter_column])
+                
+                # Opciones de filtrado basadas en el tipo de columna
+                if is_numeric:
+                    filter_type = st.radio("Filter type:", ["Equal to", "Greater than", "Less than"], horizontal=True)
+                else:
+                    filter_type = st.radio("Filter type:", ["Equal to", "Contains"], horizontal=True)
+                
+                # Entrada del valor de filtro
+                filter_value = st.text_input("Enter value to filter by:")
+                
+                if filter_value:
+                    # Crear una copia temporal para filtrar (no modificar el df original)
+                    filtered_df = df.copy()
+                    
+                    # Aplicar el filtro según el tipo seleccionado
+                    if is_numeric:
+                        try:
+                            # Convertir a número
+                            num_value = float(filter_value)
+                            if filter_type == "Equal to":
+                                filtered_df = filtered_df[filtered_df[filter_column] == num_value]
+                            elif filter_type == "Greater than":
+                                filtered_df = filtered_df[filtered_df[filter_column] > num_value]
+                            else:  # Less than
+                                filtered_df = filtered_df[filtered_df[filter_column] < num_value]
+                        except ValueError:
+                            st.error(f"Please enter a valid number for column '{filter_column}'")
+                            filtered_df = df.copy()
+                    else:
+                        # Para texto
+                        if filter_type == "Equal to":
+                            filtered_df = filtered_df[filtered_df[filter_column].astype(str) == filter_value]
+                        else:  # Contains
+                            filtered_df = filtered_df[filtered_df[filter_column].astype(str).str.contains(filter_value, case=False, na=False)]
+                    
+                    # Mostrar resultados
+                    st.write(f"Data after filtering rows ({len(filtered_df)} rows found):")
+                    st.write(filtered_df)
+                    
+                    # Opción para actualizar el DataFrame principal
+                    if st.button("Use filtered data for next operations"):
+                        df = filtered_df
+                        st.success("Main dataset updated with filtered data!")
+                        
+            except Exception as e:
+                st.error(f"Error during filtering: {str(e)}")
         elif action == "Sort Data":
             sort_column = st.selectbox("Select column to sort by:", df.columns)
             sort_order = st.radio("Sort order:", ["Ascending", "Descending"])
