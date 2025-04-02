@@ -9,8 +9,38 @@ from limpiar import clean_data, remove_outliers, remove_outliers_iqr
 # Configuración de estilo para gráficos
 sns.set_theme(style="whitegrid")
 
+# Configuración de la barra lateral
+st.sidebar.image("images/logo.png", width=150)
+st.sidebar.title("Cleanly")
+st.sidebar.markdown("### Data Cleaning Made Simple")
+st.sidebar.markdown("---")
+st.sidebar.markdown("[GitHub Repository](https://github.com/yourusername/cleanly)")
+st.sidebar.markdown("---")
+st.sidebar.markdown("© 2023 Cleanly")
+
 # Streamlit app
 st.title("CSV Cleaner and EDA Tool")
+
+# Imagen de portada
+st.image("images/banner.png", use_column_width=True)
+
+# Texto explicativo de la aplicación
+st.markdown("""
+## Welcome to Cleanly!
+
+Cleanly is an interactive tool designed to simplify the data cleaning and exploratory data analysis (EDA) process. 
+Whether you're a data scientist, analyst, or student, this application helps you:
+
+- **Clean and preprocess** your CSV data with a few clicks
+- **Identify and handle** missing values and duplicates
+- **Remove outliers** using statistical methods
+- **Visualize your data** through various chart types
+- **Transform your data** through normalization and encoding
+- **Export your cleaned data** for further analysis
+
+Simply upload your CSV file to get started, and use the options below to clean and analyze your data!
+""")
+
 
 # File uploader
 uploaded_file = st.file_uploader("Upload a CSV file", type="csv")
