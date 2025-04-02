@@ -13,6 +13,8 @@
 
 Cleanly is an interactive Streamlit-based tool that allows you to upload, clean, and analyze CSV files easily. It provides functionalities for data cleaning, outlier removal, data visualization, and exploratory data analysis (EDA).
 
+🚀 **Try it now:** [Launch Cleanly App](https://limpito.streamlit.app/) - No installation required!
+
 ## ✨ Features
 
 - 📂 **CSV File Upload**: Upload CSV files for processing.
