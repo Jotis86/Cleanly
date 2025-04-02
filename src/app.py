@@ -10,26 +10,23 @@ import os
 # Configuración de estilo para gráficos
 sns.set_theme(style="whitegrid")
 
-# Obtiene el directorio donde está el script actual
+# Obtener la ruta absoluta del directorio actual
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Construir rutas a las imágenes
-images_dir = os.path.join(current_dir, "images")
-logo_path = os.path.join(images_dir, "funko.png")
-banner_path = os.path.join(images_dir, "portada.png")
-
-# Verificar si las imágenes existen y mostrarlas
-try:
-    if os.path.exists(logo_path):
-        st.sidebar.image(logo_path, width=150)
-    else:
-        st.sidebar.warning("Logo image not found")
-except Exception as e:
-    st.sidebar.error(f"Error loading logo: {e}")
+# Construir las rutas absolutas de las imágenes en la carpeta 'images'
+images_dir = os.path.join(current_dir, 'images')
+principal_image_path = os.path.join(images_dir, 'portada.png')
+menu_image_path = os.path.join(images_dir, 'funko.png')
 
 
 # Configuración de la barra lateral
-st.sidebar.image("images/funko.png", width=150)
+try:
+    st.sidebar.image(menu_image_path, use_container_width=True)
+except Exception as e:
+    st.sidebar.error(f"Error loading image: {e}")
+    st.sidebar.info(f"Looking for image at: {menu_image_path}")
+
+
 st.sidebar.title("Cleanly")
 st.sidebar.markdown("### Data Cleaning Made Simple")
 st.sidebar.markdown("---")
@@ -40,17 +37,12 @@ st.sidebar.markdown("© 2023 Cleanly")
 # Streamlit app
 st.title("CSV Cleaner and EDA Tool")
 
-# Imagen de portada con manejo de errores
+# Mostrar imagen principal
 try:
-    if os.path.exists(banner_path):
-        st.image(banner_path, use_column_width=True)
-    else:
-        st.warning("Banner image not found")
+    st.image(principal_image_path, use_container_width=True)
 except Exception as e:
-    st.error(f"Error loading banner: {e}")
-
-# Imagen de portada
-st.image("images/portada.png", use_column_width=True)
+    st.error(f"Error loading image: {e}")
+    st.info(f"Looking for image at: {principal_image_path}")
 
 # Texto explicativo de la aplicación
 st.markdown("""
