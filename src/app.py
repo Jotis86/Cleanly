@@ -10,7 +10,7 @@ from limpiar import clean_data, remove_outliers, remove_outliers_iqr
 sns.set_theme(style="whitegrid")
 
 # Configuración de la barra lateral
-st.sidebar.image("images/logo.png", width=150)
+st.sidebar.image("images/funko.png", width=150)
 st.sidebar.title("Cleanly")
 st.sidebar.markdown("### Data Cleaning Made Simple")
 st.sidebar.markdown("---")
@@ -22,7 +22,7 @@ st.sidebar.markdown("© 2023 Cleanly")
 st.title("CSV Cleaner and EDA Tool")
 
 # Imagen de portada
-st.image("images/banner.png", use_column_width=True)
+st.image("images/portada.png", use_column_width=True)
 
 # Texto explicativo de la aplicación
 st.markdown("""
