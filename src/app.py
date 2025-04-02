@@ -5,9 +5,28 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from io import BytesIO
 from limpiar import clean_data, remove_outliers, remove_outliers_iqr
+import os
 
 # Configuración de estilo para gráficos
 sns.set_theme(style="whitegrid")
+
+# Obtiene el directorio donde está el script actual
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Construir rutas a las imágenes
+images_dir = os.path.join(current_dir, "images")
+logo_path = os.path.join(images_dir, "funko.png")
+banner_path = os.path.join(images_dir, "portada.png")
+
+# Verificar si las imágenes existen y mostrarlas
+try:
+    if os.path.exists(logo_path):
+        st.sidebar.image(logo_path, width=150)
+    else:
+        st.sidebar.warning("Logo image not found")
+except Exception as e:
+    st.sidebar.error(f"Error loading logo: {e}")
+
 
 # Configuración de la barra lateral
 st.sidebar.image("images/funko.png", width=150)
@@ -20,6 +39,15 @@ st.sidebar.markdown("© 2023 Cleanly")
 
 # Streamlit app
 st.title("CSV Cleaner and EDA Tool")
+
+# Imagen de portada con manejo de errores
+try:
+    if os.path.exists(banner_path):
+        st.image(banner_path, use_column_width=True)
+    else:
+        st.warning("Banner image not found")
+except Exception as e:
+    st.error(f"Error loading banner: {e}")
 
 # Imagen de portada
 st.image("images/portada.png", use_column_width=True)
