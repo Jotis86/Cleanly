@@ -115,9 +115,7 @@ if uploaded_file:
     st.write("### What would you like to do next?")
     options = [
         "Show Descriptive Statistics",
-        "Clean Data",
-        "Remove Duplicates",
-        "Handle Missing Values",
+        "Basic Data Cleaning",
         "Remove Outliers (Z-Score)",
         "Remove Outliers (IQR)",
         "Normalize Data",
@@ -139,17 +137,12 @@ if uploaded_file:
         if action == "Show Descriptive Statistics":
             st.write("### Descriptive Statistics")
             st.write(df.describe())
-        elif action == "Clean Data":
+        elif action == "Basic Data Cleaning":
             df = clean_data(df)
-            st.write("Data after cleaning:")
-            st.write(df)
-        elif action == "Remove Duplicates":
-            df = df.drop_duplicates()
-            st.write("Data after removing duplicates:")
-            st.write(df)
-        elif action == "Handle Missing Values":
-            df = clean_data(df)
-            st.write("Data after handling missing values:")
+            st.write("### Data after basic cleaning")
+            st.write("✅ Duplicates removed")
+            st.write("✅ Missing numeric values filled with mean")
+            st.write("✅ Missing text values filled with mode")
             st.write(df)
         elif action == "Remove Outliers (Z-Score)":
             df = remove_outliers(df)
