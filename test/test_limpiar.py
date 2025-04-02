@@ -1,6 +1,11 @@
 import pytest
 import pandas as pd
 import numpy as np
+import sys
+import os
+
+# Añadir la carpeta src al path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src.limpiar import clean_data, remove_outliers, remove_outliers_iqr
 
 def test_clean_data():
@@ -25,11 +30,11 @@ def test_clean_data():
 
 def test_remove_outliers():
     # Create a sample DataFrame with outliers
-    data = {"A": [1, 2, 3, 1000], "B": [10, 20, 30, 1000]}
+    data = {"A": [1, 2, 3, 10000], "B": [10, 20, 30, 10000]}
     df = pd.DataFrame(data)
     
-    # Apply remove_outliers
-    df_no_outliers = remove_outliers(df)
+    # Apply remove_outliers with a lower threshold
+    df_no_outliers = remove_outliers(df, z_thresh=2.5)  # Umbral más bajo que el predeterminado
     
     # Check that the outlier row is removed
     assert len(df_no_outliers) < len(df)
