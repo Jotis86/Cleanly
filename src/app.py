@@ -157,7 +157,7 @@ if uploaded_file:
             st.pyplot(fig)
 
     # Menú para acciones
-    st.write("### What would you like to do next?")
+    st.write("### What would you like to do next")
     options = [
         "Show Descriptive Statistics",
         "Basic Data Cleaning",
