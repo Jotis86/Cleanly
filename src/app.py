@@ -105,9 +105,60 @@ if uploaded_file:
     # Visualizar distribución de tipos de datos
     dtype_counts = df.dtypes.value_counts().reset_index()
     dtype_counts.columns = ['Data Type', 'Count']
-    fig, ax = plt.subplots(figsize=(8, 4))
-    sns.barplot(x='Data Type', y='Count', data=dtype_counts, palette='viridis', ax=ax)
-    ax.set_title('Distribution of Column Data Types')
+
+    # Crear figura con mejor resolución y tamaño
+    fig, ax = plt.subplots(figsize=(10, 5), dpi=100)
+
+    # Crear gráfico de barras con estilo mejorado
+    bars = sns.barplot(
+        x='Data Type', 
+        y='Count', 
+        data=dtype_counts, 
+        palette='viridis',
+        ax=ax,
+        edgecolor='black',
+        linewidth=1.5,
+        alpha=0.85
+    )
+
+    # Añadir etiquetas con el conteo en cada barra
+    for i, p in enumerate(bars.patches):
+        count = int(p.get_height())
+        percentage = 100 * count / sum(dtype_counts['Count'])
+        ax.annotate(
+            f'{count}\n({percentage:.1f}%)',
+            (p.get_x() + p.get_width() / 2., p.get_height()),
+            ha='center',
+            va='bottom',
+            fontsize=11,
+            fontweight='bold',
+            color='black'
+        )
+
+    # Personalizar ejes y título
+    ax.set_title('Distribution of Column Data Types', fontsize=16, fontweight='bold', pad=20)
+    ax.set_xlabel('Data Type', fontsize=12, fontweight='bold')
+    ax.set_ylabel('Number of Columns', fontsize=12, fontweight='bold')
+
+    # Mejorar la rejilla
+    ax.grid(axis='y', linestyle='--', alpha=0.7)
+    ax.set_axisbelow(True)
+
+    # Ajustar bordes
+    for spine in ax.spines.values():
+        spine.set_linewidth(1.5)
+
+    # Añadir contexto
+    if len(dtype_counts) > 1:
+        main_type = dtype_counts.iloc[0]['Data Type']
+        plt.figtext(0.5, 0.01, 
+                    f'This dataset primarily contains {main_type} columns ({dtype_counts.iloc[0]["Count"]} columns)', 
+                    ha='center', fontsize=10, fontstyle='italic')
+
+    # Ajuste de diseño
+    plt.tight_layout()
+
+    # Mostrar el gráfico
     st.pyplot(fig)
 
     # Mostrar duplicados
