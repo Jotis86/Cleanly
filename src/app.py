@@ -301,6 +301,7 @@ if uploaded_file:
             df = df.sort_values(by=sort_column, ascending=(sort_order == "Ascending"))
             st.write("Data after sorting:")
             st.write(df)
+
         elif action == "Visualize Histograms":
             selected_cols = st.multiselect("Select numeric columns for histograms:", df.select_dtypes(include=np.number).columns)
             for col in selected_cols:
@@ -308,12 +309,50 @@ if uploaded_file:
                 sns.histplot(df[col], bins=20, kde=True, color="blue", ax=ax)
                 ax.set_title(f"Histogram of {col}")
                 st.pyplot(fig)
+
         elif action == "Visualize Bar Charts":
-            selected_col = st.selectbox("Select a categorical column for bar chart:", df.select_dtypes(include='object').columns)
-            fig, ax = plt.subplots()
-            sns.countplot(x=df[selected_col], palette="Set2", ax=ax)
-            ax.set_title(f"Bar Chart of {selected_col}")
-            st.pyplot(fig)
+            # Verificar si hay columnas categóricas
+            cat_cols = df.select_dtypes(include=['object', 'category']).columns
+            
+            if len(cat_cols) == 0:
+                # No hay columnas categóricas, ofrecer columnas numéricas con pocos valores únicos
+                num_cols = df.select_dtypes(include=np.number).columns
+                # Filtrar columnas numéricas con menos de 20 valores únicos para barras
+                viable_cols = [col for col in num_cols if df[col].nunique() <= 20]
+                
+                if len(viable_cols) == 0:
+                    st.warning("No categorical columns or numeric columns with few unique values found. Bar charts are best for categorical data.")
+                    st.info("Try using 'Visualize Histograms' for your numeric columns instead.")
+                else:
+                    selected_col = st.selectbox("Select column for bar chart:", viable_cols)
+                    fig, ax = plt.subplots(figsize=(10, 6))
+                    
+                    # Convertir a cadena para tratar como categórico
+                    value_counts = df[selected_col].value_counts().sort_index()
+                    sns.barplot(x=value_counts.index.astype(str), y=value_counts.values, ax=ax, palette="Set2")
+                    ax.set_title(f"Bar Chart of {selected_col}")
+                    ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha='right')
+                    plt.tight_layout()
+                    st.pyplot(fig)
+            else:
+                # Hay columnas categóricas, usar código original mejorado
+                selected_col = st.selectbox("Select a categorical column for bar chart:", cat_cols)
+                fig, ax = plt.subplots(figsize=(10, 6))
+                
+                # Limitar a 15 categorías más frecuentes si hay demasiadas
+                value_counts = df[selected_col].value_counts()
+                if len(value_counts) > 15:
+                    st.info(f"Showing top 15 categories out of {len(value_counts)}")
+                    top_cats = value_counts.nlargest(15).index
+                    chart_data = df[df[selected_col].isin(top_cats)]
+                    sns.countplot(y=selected_col, data=chart_data, order=value_counts.nlargest(15).index, ax=ax, palette="Set2")
+                else:
+                    sns.countplot(y=selected_col, data=df, order=value_counts.index, ax=ax, palette="Set2")
+                
+                ax.set_title(f"Bar Chart of {selected_col}")
+                plt.tight_layout()
+                st.pyplot(fig)
+
         elif action == "Scatter Plot":
             st.write("### Scatter Plot")
             numeric_cols = df.select_dtypes(include=np.number).columns
