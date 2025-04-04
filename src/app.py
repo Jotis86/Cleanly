@@ -7,6 +7,25 @@ from io import BytesIO
 from limpiar import clean_data, remove_outliers, remove_outliers_iqr
 import os
 
+
+# Configuración de la página - debe ir antes de cualquier otra llamada a st
+st.set_page_config(
+    page_title="Cleanly - CSV Cleaner and EDA Tool",
+    page_icon="🧹",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    menu_items={
+        'Get Help': 'https://github.com/Jotis86/Cleanly/issues',
+        'Report a bug': 'https://github.com/Jotis86/Cleanly/issues',
+        'About': """
+        # Cleanly 
+        Your companion for data cleaning and exploratory data analysis.
+        
+        Created by [Jotis86](https://github.com/Jotis86).
+        """
+    }
+)
+
 # Configuración de estilo para gráficos
 sns.set_theme(style="whitegrid")
 
