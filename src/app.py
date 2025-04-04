@@ -365,6 +365,7 @@ if uploaded_file:
                 st.pyplot(fig)
             else:
                 st.write("Not enough numeric columns to create a scatter plot.")
+                
         elif action == "Group Data":
             try:
                 # Seleccionar columna para agrupar
