@@ -150,10 +150,62 @@ if uploaded_file:
         
         # Visualizar columnas con más outliers
         if not outlier_df.empty:
-            fig, ax = plt.subplots(figsize=(10, 5))
-            sns.barplot(x='Column', y='Outliers Count', data=outlier_df.sort_values('Outliers Count', ascending=False).head(5), ax=ax)
-            ax.set_title('Top 5 Columns with Most Potential Outliers')
-            plt.xticks(rotation=45, ha='right')
+            # Preparar los datos
+            plot_data = outlier_df.sort_values('Outliers Count', ascending=False).head(5)
+            
+            # Crear figura con tamaño adecuado y mejor resolución
+            fig, ax = plt.subplots(figsize=(12, 6), dpi=100)
+            
+            # Crear gráfico de barras con estilo mejorado
+            bars = sns.barplot(
+                x='Column', 
+                y='Outliers Count', 
+                data=plot_data, 
+                palette='viridis',  # Paleta de colores más atractiva
+                ax=ax,
+                edgecolor='black',  # Borde negro para mejor definición
+                linewidth=1.5,      # Ancho del borde
+                alpha=0.8           # Transparencia para efecto visual
+            )
+            
+            # Añadir etiquetas con el número de outliers y porcentaje
+            for i, p in enumerate(bars.patches):
+                percentage = plot_data.iloc[i]['Percentage']
+                count = int(p.get_height())
+                ax.annotate(
+                    f'{count}\n({percentage})',
+                    (p.get_x() + p.get_width() / 2., p.get_height()),
+                    ha='center',
+                    va='bottom',
+                    fontsize=11,
+                    fontweight='bold',
+                    color='black'
+                )
+            
+            # Personalizar ejes y título
+            ax.set_title('Top 5 Columns with Most Potential Outliers', fontsize=16, fontweight='bold', pad=20)
+            ax.set_xlabel('Column Name', fontsize=12, fontweight='bold')
+            ax.set_ylabel('Number of Outliers', fontsize=12, fontweight='bold')
+            
+            # Mejorar etiquetas del eje X
+            plt.xticks(rotation=45, ha='right', fontsize=10, fontweight='semibold')
+            
+            # Personalizar rejilla y fondo
+            ax.grid(axis='y', linestyle='--', alpha=0.7)
+            ax.set_axisbelow(True)  # Poner la rejilla detrás de las barras
+            
+            # Bordes y acabado
+            for spine in ax.spines.values():
+                spine.set_linewidth(1.5)
+            
+            # Añadir un título descriptivo
+            plt.figtext(0.5, 0.01, 'Columns that may require outlier treatment', 
+                        ha='center', fontsize=10, fontstyle='italic')
+            
+            # Ajuste de diseño
+            plt.tight_layout()
+            
+            # Mostrar el gráfico
             st.pyplot(fig)
 
     # Menú para acciones
@@ -365,7 +417,7 @@ if uploaded_file:
                 st.pyplot(fig)
             else:
                 st.write("Not enough numeric columns to create a scatter plot.")
-                
+
         elif action == "Group Data":
             try:
                 # Seleccionar columna para agrupar
