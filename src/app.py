@@ -175,9 +175,66 @@ if uploaded_file:
 
     # Visualización de valores nulos
     st.write("### Missing Values Heatmap")
-    fig, ax = plt.subplots(figsize=(10, 6))
-    sns.heatmap(df.isnull(), cbar=False, cmap="viridis", ax=ax)
-    ax.set_title("Heatmap of Missing Values")
+
+    # Calcular estadísticas de valores nulos
+    missing_count = df.isnull().sum().sum()
+    missing_percent = (missing_count / (df.shape[0] * df.shape[1])) * 100
+
+    # Ajustar tamaño según el número de filas y columnas
+    rows, cols = df.shape
+    figsize = (min(14, max(10, cols * 0.5)), min(10, max(6, rows * 0.02)))
+
+    # Crear figura
+    fig, ax = plt.subplots(figsize=figsize, dpi=100)
+
+    # Crear heatmap con estilo mejorado
+    heatmap = sns.heatmap(
+        df.isnull(), 
+        cbar=True,
+        cmap="YlGnBu",  # Cambio de paleta de colores
+        ax=ax,
+        yticklabels=False,  # Ocultar etiquetas de filas para datasets grandes
+        cbar_kws={'label': 'Missing Values', 'shrink': 0.8}
+    )
+
+    # Personalizar ejes y título
+    ax.set_title('Heatmap of Missing Values', fontsize=16, fontweight='bold', pad=20)
+    ax.set_xlabel('Columns', fontsize=12, fontweight='bold')
+    ax.set_ylabel('Rows', fontsize=12, fontweight='bold')
+
+    # Rotar etiquetas del eje X para mejor legibilidad
+    plt.xticks(rotation=45, ha='right', fontsize=10)
+
+    # Bordes y estructura
+    for spine in ax.spines.values():
+        spine.set_linewidth(1.5)
+        spine.set_color('gray')
+
+    # Añadir información sobre valores nulos
+    if missing_count > 0:
+        plt.figtext(
+            0.5, 0.01, 
+            f'Dataset contains {missing_count:,} missing values ({missing_percent:.2f}% of total)', 
+            ha='center', 
+            fontsize=10, 
+            fontstyle='italic',
+            bbox={'facecolor': 'lightgray', 'alpha': 0.5, 'pad': 5, 'boxstyle': 'round,pad=0.5'}
+        )
+    else:
+        plt.figtext(
+            0.5, 0.01, 
+            'No missing values found in the dataset', 
+            ha='center', 
+            fontsize=10, 
+            fontstyle='italic',
+            color='green',
+            bbox={'facecolor': 'lightgreen', 'alpha': 0.5, 'pad': 5, 'boxstyle': 'round,pad=0.5'}
+        )
+
+    # Ajuste de diseño
+    plt.tight_layout(rect=[0, 0.03, 1, 0.97])  # Dejar espacio para el texto inferior
+
+    # Mostrar el gráfico
     st.pyplot(fig)
 
     # Detección básica de outliers
